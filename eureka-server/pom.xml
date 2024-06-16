@@ -6,12 +6,12 @@
         <groupId>pers.hubery</groupId>
         <artifactId>springcloud-demo1-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <artifactId>eureka-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>eureka-server</name>
     <description>eureka-server</description>
+
 
     <dependencies>
         <!--Eureka服务端的依赖-->
@@ -19,6 +19,41 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <!--            <version>3.2.5</version>-->
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <!--            <version>5.10.2</version>-->
+            <scope>test</scope>
+        </dependency>
+
+
     </dependencies>
 
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>pers.hubery.eurekaserver.EurekaServerApplication</mainClass> <!-- 替换为你的主类 -->
+                    <executable>true</executable> <!-- 添加此行以启用可执行 JAR 文件 -->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
