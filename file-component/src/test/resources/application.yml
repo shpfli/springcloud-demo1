@@ -1,0 +1,27 @@
+comet:
+  file-component:
+    protocol: oss
+    ftp:
+      host: 127.0.0.1
+      port: 21
+      username: hubery
+      password: 123456
+    sftp:
+      host: 127.0.0.1
+      port: 22
+      username: hubery
+      password: 123456
+    oss:
+      endpoint: oss-cn-beijing.aliyuncs.com
+      access-key-id: <KEY>
+      access-key-secret: <KEY>
+      # 绝大部分情况下，一个业务系统只需要访问一个bucket，调用文件上传和下载接口时，可以不指定 bucket，会自动使用这里配置的默认 bucket。如果一个业务系统需要访问多个不同的bucket，那么需要在调用接口时指定 bucket。
+      default-bucket: hubery-oss-demo
+      # 是否启用断点续传，默认关闭
+      enable-checkpoint: false
+      # 分片上传和下载配置，可以通过将分片大小设的足够大来禁用分片
+      multipart:
+        # 分片大小，单位：字节，默认100K，即102400
+        part-size: 10485760
+        # 分片上传或下载时的并发线程数，默认为 1
+        task-num: 10

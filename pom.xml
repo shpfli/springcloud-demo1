@@ -11,6 +11,8 @@
     <modules>
         <module>user-client</module>
         <module>user-service</module>
+        <module>eureka-server</module>
+        <module>file-component</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -52,14 +54,16 @@
             <dependency>
                 <groupId>commons-net</groupId>
                 <artifactId>commons-net</artifactId>
-                <version>3.9.0</version>
+                <version>3.3</version>
+                <!--                <version>3.9.0</version>-->
             </dependency>
 
             <!-- sftp 客户端 -->
             <dependency>
                 <groupId>com.jcraft</groupId>
                 <artifactId>jsch</artifactId>
-                <version>0.1.55</version>
+                <version>0.1.54</version>
+<!--                <version>0.1.55</version>-->
             </dependency>
 
             <!--     阿里云 OSS       -->
@@ -125,6 +129,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.6.13</version>
                 <configuration>
                     <excludes>
                         <exclude>
