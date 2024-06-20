@@ -1,0 +1,38 @@
+# 使用官方提供的Java 8基础镜像
+FROM openjdk:8-jdk-alpine
+LABEL authors="hubery"
+
+# 安装Maven
+RUN apk add --no-cache maven
+
+# 设置工作目录
+WORKDIR /app
+
+# 将当前目录内容复制到容器的/app内
+COPY . /app
+
+# 在 Dockerfile中，你可以通过复制Maven的settings.xml到容器中来配置Maven的仓库、认证等。
+COPY .m2/settings.xml /root/.m2/settings.xml
+COPY .m2/repository /root/.m2/repository
+#COPY ../.m2/settings.xml /root/.m2/settings.xml
+#COPY ../.m2/repository/pers/hubery/springcloud-demo1-parent/0.0.1-SNAPSHOT/springcloud-demo1-parent-0.0.1-SNAPSHOT.pom /root/.m2/repository/pers/hubery/springcloud-demo1-parent/0.0.1-SNAPSHOT/springcloud-demo1-parent-0.0.1-SNAPSHOT.pom
+#COPY ../.m2/repository/pers/hubery/springcloud-demo1-parent/0.0.1-SNAPSHOT/maven-metadata-local.xml /root/.m2/repository/pers/hubery/springcloud-demo1-parent/0.0.1-SNAPSHOT/maven-metadata-local.xml
+#COPY ../.m2/repository/pers/hubery/springcloud-demo1-parent/0.0.1-SNAPSHOT/_remote.repositories /root/.m2/repository/pers/hubery/springcloud-demo1-parent/0.0.1-SNAPSHOT/_remote.repositories
+
+# 将宿主机的Maven本地仓库复制到容器
+VOLUME /root/.m2
+
+# 在Dockerfile中，使用mvn命令之前，先执行mvn dependency:resolve来下载所有依赖。
+RUN mvn dependency:resolve
+
+# 编译源码
+RUN mvn clean package -DskipTests
+
+# 安装 curl
+RUN apk add --no-cache curl
+
+# 暴露 8761 端口
+EXPOSE 8761
+
+# 设置容器启动时运行的命令
+CMD ["java", "-jar", "target/eureka-server-0.0.1-SNAPSHOT.jar"]
